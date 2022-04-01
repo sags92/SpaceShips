@@ -5,9 +5,9 @@ public class LoseOnCollision : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject ingameUI;
 
-    private void OnTriggerEnter2D(Collider2D CollidingObj)
+    private void OnCollisionEnter2D(Collision2D collidingObj)
     {
-        if (CollidingObj.GetComponent<Asteroid>() == null)
+        if (collidingObj.gameObject.GetComponent<Asteroid>() == null)
             return;
         Lose();
     }

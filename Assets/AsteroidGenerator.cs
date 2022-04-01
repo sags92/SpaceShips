@@ -7,14 +7,18 @@ public class AsteroidGenerator : MonoBehaviour
     public float x_Space, y_Space;
     public GameObject asteroidPrefab;
     private GameObject newAsteroid;
+    private CameraInfo cameraInfo;
     private Vector2 randomValues;
-    private List<Vector2> globalForcesList = GlobalSettings.GLOBALFORCES;
+    private readonly List<Vector2> globalForcesList = GlobalSettings.GLOBALFORCES;
     private bool firstGame = true;
     private int asteroidCount;
 
+
     private void Awake()
     {
-        float initialTime = Time.realtimeSinceStartup;
+        cameraInfo = FindObjectOfType<CameraInfo>();
+        EventManager.OnAsteroidCollision += OnAsteroidCollisionHandler;
+
         for (int y = 0; y < rowLenght; y++)
         {
             for (int x = 0; x < columnLenght; x++)
@@ -47,8 +51,28 @@ public class AsteroidGenerator : MonoBehaviour
         }
 
         firstGame = false;
-        float duration = Time.realtimeSinceStartup - initialTime;
-        Debug.Log(duration);
+    }
+
+    private void OnAsteroidCollisionHandler()
+    {
+        float numberX;
+        float numberY;
+
+        Vector3 cameraPosition = Camera.main.transform.position;
+        while (true)
+        {
+            numberX = Random.Range(0, rowLenght * x_Space);
+            numberY = Random.Range(0, columnLenght * y_Space);
+
+            if (numberX < cameraPosition.x - cameraInfo.width ||
+                numberX > cameraPosition.x + cameraInfo.width && numberY < cameraPosition.y - cameraInfo.height ||
+                numberY > cameraPosition.y + cameraInfo.height)
+            {
+                newAsteroid = Instantiate(asteroidPrefab, new Vector3(numberX, numberY), Quaternion.identity);
+                AddForce(newAsteroid, GlobalSettings.GetRandomForce());
+                break;
+            }
+        }
     }
 
     public void AddForce(GameObject asteroid, Vector2 force)

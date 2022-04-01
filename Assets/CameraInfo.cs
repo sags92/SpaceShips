@@ -4,7 +4,7 @@ public class CameraInfo : MonoBehaviour
 {
     public float width;
     public float height;
-    Camera mainCamera;
+    private Camera mainCamera;
 
     private void Awake()
     {
