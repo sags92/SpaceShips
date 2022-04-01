@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AsteroidGenerator : MonoBehaviour
@@ -58,6 +59,13 @@ public class AsteroidGenerator : MonoBehaviour
 
     private void OnAsteroidCollisionHandler()
     {
+        StartCoroutine(SpawnDelay());
+    }
+
+    IEnumerator SpawnDelay()
+    {
+        yield return new WaitForSeconds(1);
+
         float numberX;
         float numberY;
 

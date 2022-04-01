@@ -7,9 +7,9 @@ public class GlobalSettings : MonoBehaviour
     public static bool isFirstGame = true;
     public static List<Vector2> GLOBALFORCES = new List<Vector2>();
 
-    public static int TotalDestroyed()
+    public static string TotalDestroyed()
     {
-        return count;
+        return count.ToString();
     }
 
     public static void SumAsteroid()
