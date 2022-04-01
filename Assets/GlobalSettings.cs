@@ -4,21 +4,22 @@ using UnityEngine;
 public class GlobalSettings : MonoBehaviour
 {
     private static int count;
+    public static bool isFirstGame = true;
     public static List<Vector2> GLOBALFORCES = new List<Vector2>();
 
-    public static int AsteroidsDestroyed()
+    public static int TotalDestroyed()
     {
         return count;
     }
 
-    public static void SumCountAsterioids()
+    public static void SumAsteroid()
     {
         count++;
     }
 
-    public static void Spawn(GameObject prefab, Vector3 spawnPoint)
+    public static void ResetTotalDestroyed()
     {
-        Instantiate(prefab, spawnPoint, Quaternion.identity);
+        count = 0;
     }
 
     public static Vector2 GetRandomForce()

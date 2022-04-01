@@ -9,7 +9,6 @@ public class OnCollision : MonoBehaviour
             return;
 
         Destroy(asteroid);
-        Destroy(gameObject);
         EventManager.InvokeOnAsteroidCollision();
     }
 }

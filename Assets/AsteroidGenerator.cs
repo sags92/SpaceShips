@@ -10,20 +10,18 @@ public class AsteroidGenerator : MonoBehaviour
     private CameraInfo cameraInfo;
     private Vector2 randomValues;
     private readonly List<Vector2> globalForcesList = GlobalSettings.GLOBALFORCES;
-    private bool firstGame = true;
-    private int asteroidCount;
-
 
     private void Awake()
     {
         cameraInfo = FindObjectOfType<CameraInfo>();
         EventManager.OnAsteroidCollision += OnAsteroidCollisionHandler;
+        int asteroidCount = 0;
 
         for (int y = 0; y < rowLenght; y++)
         {
             for (int x = 0; x < columnLenght; x++)
             {
-                if (firstGame)
+                if (GlobalSettings.isFirstGame)
                 {
                     while (true)
                     {
@@ -50,7 +48,12 @@ public class AsteroidGenerator : MonoBehaviour
             }
         }
 
-        firstGame = false;
+        GlobalSettings.isFirstGame = false;
+    }
+
+    public void UnsubscribeOnGameOver()
+    {
+        EventManager.OnAsteroidCollision -= OnAsteroidCollisionHandler;
     }
 
     private void OnAsteroidCollisionHandler()
