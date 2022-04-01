@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class RespawnAsteroid : MonoBehaviour
@@ -36,6 +34,7 @@ public class RespawnAsteroid : MonoBehaviour
                 numberY > mainCamera.y + cameraInfo.height)
             {
                 Instantiate(asteroidPrefab, new Vector3(numberX, numberY), Quaternion.identity);
+                asteroidGenerator.AddForce(asteroidPrefab, GlobalSettings.GetRandomForce());
                 Debug.Log("Asteroid Respawned");
                 break;
             }

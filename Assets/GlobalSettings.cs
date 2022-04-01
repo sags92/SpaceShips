@@ -20,4 +20,9 @@ public class GlobalSettings : MonoBehaviour
     {
         Instantiate(prefab, spawnPoint, Quaternion.identity);
     }
+
+    public static Vector2 GetRandomForce()
+    {
+        return GLOBALFORCES[Random.Range(0, GLOBALFORCES.Count)];
+    }
 }

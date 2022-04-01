@@ -41,7 +41,7 @@ public class AsteroidGenerator : MonoBehaviour
                 newAsteroid = Instantiate(asteroidPrefab,
                     new Vector3(x_Space * x, y_Space * y), Quaternion.identity);
                 GlobalSettings.GLOBALFORCES = globalForcesList;
-                newAsteroid.GetComponent<AsteroidController>().forces = globalForcesList[asteroidCount];
+                AddForce(newAsteroid, globalForcesList[asteroidCount]);
                 asteroidCount++;
             }
         }
@@ -49,5 +49,10 @@ public class AsteroidGenerator : MonoBehaviour
         firstGame = false;
         float duration = Time.realtimeSinceStartup - initialTime;
         Debug.Log(duration);
+    }
+
+    public void AddForce(GameObject asteroid, Vector2 force)
+    {
+        asteroid.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Force);
     }
 }
